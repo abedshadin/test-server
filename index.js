@@ -232,8 +232,26 @@ async function run() {
       res.send(tools);
     });
 
+      //get single firm details
+      app.get("/firm/:id", async (req, res) => {
+        const id = req.params.id;
+        const query = { _id: ObjectId(id) };
+        const tools = await firmCollection.findOne(query);
+        res.send(tools);
+      });
 
 
+      app.put('/firm/:id', async (req, res) => {
+        // res.send("Working")
+        const id = req.params.id;
+        const query = { _id: ObjectId(id) };
+        const options = { upsert: true }
+        const doc = {
+          $set: req.body
+        }
+        const result = await firmCollection.updateOne(query, doc, options);
+        res.send(result);
+      });
   }
   finally {
 
