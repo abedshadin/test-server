@@ -192,6 +192,15 @@ async function run() {
       const reports = await receiptCollection.find(query).toArray();
       res.send(reports);
     });
+
+
+    //get firm by select
+    app.get("/firms/firm", async (req, res) => {
+      const firmName = req.query.firmName;
+      const query = { firmName: firmName };
+      const firms = await firmCollection.find(query).toArray();
+      res.send(firms);
+    });
     //add bidder
     app.post("/addfirm", async (req, res) => {
       const newOrder = req.body;
